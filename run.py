@@ -10,11 +10,15 @@ def receive_sms():
     from_number = request.values.get('From', None)
     body = request.values.get('Body', None)
     body = body.lower().strip()  # removes spaces and converts all to lower case
-
-    message = response_handler(body)
- 
+    state = session.get('state', 0)
+    platypoints = session.get('platypoints', 0)
+    name = session.get('name', "")
+    response, state, platypoints, name = response_handler(response, state, platypoints, name)
+    session['state'] = state
+    session['platypoints'] = platypoints
+    session['name'] = name
     resp = twilio.twiml.Response()
-    resp.message(message)
+    resp.message(response)
 
     return str(resp)
 
