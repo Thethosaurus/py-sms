@@ -14,7 +14,7 @@ def receive_sms():
     platypoints = session.get('platypoints', 0)
     name = session.get('name', "")
     response = ""
-    response, state, platypoints, name = response_handler(bpdy, state, platypoints, name)
+    response, state, platypoints, name = response_handler(body, state, platypoints, name)
     session['state'] = state
     session['platypoints'] = platypoints
     session['name'] = name
